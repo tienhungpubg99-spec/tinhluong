@@ -7,7 +7,7 @@
     <!-- Tailwind CSS -->
     <script src="https://cdn.tailwindcss.com"></script>
     <!-- Google Fonts: Inter & Noto Sans JP -->
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Noto+Sans+JP:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Noto+Sans+JP:wght@400;500;600;700&display=swap" rel="stylesheet">
     <!-- Lucide Icons -->
     <script src="https://unpkg.com/lucide@latest"></script>
     <style>
@@ -16,7 +16,6 @@
             background-color: #f8fafc;
             color: #0f172a;
         }
-        /* Custom Japanese Official Slip Border Styling */
         .gensen-table {
             border: 2px solid #1e293b;
             border-collapse: collapse;
@@ -28,14 +27,9 @@
             border: 2px solid #0f172a !important;
             background-color: #fffbeb;
         }
-        /* Print Styles */
         @media print {
-            body {
-                background-color: #ffffff;
-            }
-            .no-print {
-                display: none !important;
-            }
+            body { background-color: #ffffff; }
+            .no-print { display: none !important; }
             .print-only-container {
                 box-shadow: none !important;
                 border: none !important;
@@ -45,21 +39,10 @@
                 padding: 0 !important;
             }
         }
-        /* Custom Scrollbar */
-        ::-webkit-scrollbar {
-            width: 8px;
-            height: 8px;
-        }
-        ::-webkit-scrollbar-track {
-            background: #f1f5f9;
-        }
-        ::-webkit-scrollbar-thumb {
-            background: #cbd5e1;
-            border-radius: 4px;
-        }
-        ::-webkit-scrollbar-thumb:hover {
-            background: #94a3b8;
-        }
+        ::-webkit-scrollbar { width: 8px; height: 8px; }
+        ::-webkit-scrollbar-track { background: #f1f5f9; }
+        ::-webkit-scrollbar-thumb { background: #cbd5e1; border-radius: 4px; }
+        ::-webkit-scrollbar-thumb:hover { background: #94a3b8; }
     </style>
 </head>
 <body class="min-h-screen flex flex-col">
@@ -77,38 +60,38 @@
                             <h1 class="text-xl font-bold tracking-tight">JP-VN Payroll & Tax Pro</h1>
                             <span class="bg-indigo-500/20 text-indigo-300 border border-indigo-400/30 text-xs px-2 py-0.5 rounded-full font-medium">令和8年対応 (2026)</span>
                         </div>
-                        <p class="text-xs text-slate-400 mt-0.5">給与・残業・社会保険・労働保険・所得税・年末調整・源泉徴収票システム</p>
+                        <p class="text-xs text-slate-400 mt-0.5">給与・残業・社会保険（扶養・免除対応）・労働保険・所得税・年末調整</p>
                     </div>
                 </div>
 
-                <!-- Sample Presets & Saved Employees -->
+                <!-- Sample Presets -->
                 <div class="flex flex-wrap items-center gap-2">
                     <span class="text-xs text-slate-400 mr-1"><i data-lucide="sparkles" class="w-3.5 h-3.5 inline mr-1 text-amber-400"></i>Mẫu thử nhanh:</span>
+                    <button onclick="applyPreset('dependentNoShakai')" class="text-xs bg-amber-500/20 hover:bg-amber-500/30 text-amber-200 border border-amber-400/40 px-3 py-1.5 rounded-lg transition flex items-center gap-1.5 font-medium">
+                        <i data-lucide="heart" class="w-3.5 h-3.5 text-amber-400"></i> Visa Gia Đình (Không 社会保険)
+                    </button>
                     <button onclick="applyPreset('single25')" class="text-xs bg-slate-800 hover:bg-slate-700 text-slate-200 border border-slate-700 px-3 py-1.5 rounded-lg transition flex items-center gap-1.5">
-                        <i data-lucide="user" class="w-3.5 h-3.5 text-sky-400"></i> Độc thân (Lương 25 vạn)
+                        <i data-lucide="user" class="w-3.5 h-3.5 text-sky-400"></i> Độc thân (25 vạn)
                     </button>
                     <button onclick="applyPreset('family35')" class="text-xs bg-slate-800 hover:bg-slate-700 text-slate-200 border border-slate-700 px-3 py-1.5 rounded-lg transition flex items-center gap-1.5">
-                        <i data-lucide="users" class="w-3.5 h-3.5 text-emerald-400"></i> Có 2 phụ thuộc (Lương 35 vạn + Tăng ca)
-                    </button>
-                    <button onclick="applyPreset('senior45')" class="text-xs bg-slate-800 hover:bg-slate-700 text-slate-200 border border-slate-700 px-3 py-1.5 rounded-lg transition flex items-center gap-1.5">
-                        <i data-lucide="award" class="w-3.5 h-3.5 text-amber-400"></i> Quản lý >40t (45 vạn)
+                        <i data-lucide="users" class="w-3.5 h-3.5 text-emerald-400"></i> Có 2 phụ thuộc (35 vạn)
                     </button>
                 </div>
             </div>
 
             <!-- Main Navigation Tabs -->
             <div class="flex space-x-2 mt-5 border-b border-slate-800 pt-1 overflow-x-auto">
-                <button id="tabBtn-monthly" onclick="switchTab('monthly')" class="px-5 py-2.5 text-sm font-semibold rounded-t-xl transition flex items-center gap-2 bg-indigo-600 text-white shadow">
+                <button id="tabBtn-monthly" onclick="switchTab('monthly')" class="px-5 py-2.5 text-sm font-semibold rounded-t-xl transition flex items-center gap-2 bg-indigo-600 text-white shadow shrink-0">
                     <i data-lucide="wallet" class="w-4 h-4"></i>
                     <span>1. Tính Lương Hàng Tháng (月次給与・社保・残業)</span>
                 </button>
-                <button id="tabBtn-nenmatsu" onclick="switchTab('nenmatsu')" class="px-5 py-2.5 text-sm font-semibold rounded-t-xl transition flex items-center gap-2 bg-slate-800/70 text-slate-300 hover:bg-slate-800 hover:text-white">
-                    <i data-lucide="file-Spreadsheet" class="w-4 h-4"></i>
+                <button id="tabBtn-nenmatsu" onclick="switchTab('nenmatsu')" class="px-5 py-2.5 text-sm font-semibold rounded-t-xl transition flex items-center gap-2 bg-slate-800/70 text-slate-300 hover:bg-slate-800 hover:text-white shrink-0">
+                    <i data-lucide="file-spreadsheet" class="w-4 h-4"></i>
                     <span>2. Điều Chỉnh Cuối Năm & 源泉徴収票 (年末調整)</span>
                 </button>
-                <button id="tabBtn-employees" onclick="switchTab('employees')" class="px-5 py-2.5 text-sm font-semibold rounded-t-xl transition flex items-center gap-2 bg-slate-800/70 text-slate-300 hover:bg-slate-800 hover:text-white">
+                <button id="tabBtn-employees" onclick="switchTab('employees')" class="px-5 py-2.5 text-sm font-semibold rounded-t-xl transition flex items-center gap-2 bg-slate-800/70 text-slate-300 hover:bg-slate-800 hover:text-white shrink-0">
                     <i data-lucide="database" class="w-4 h-4"></i>
-                    <span>3. Danh Sách Nhân Viên Đã Lưu (<span id="savedCountBadge">0</span>)</span>
+                    <span>3. Danh Sách Nhân Viên (<span id="savedCountBadge">0</span>)</span>
                 </button>
             </div>
         </div>
@@ -132,80 +115,107 @@
                 <!-- LEFT COLUMN: INPUT FORMS (7 Cols) -->
                 <div class="lg:col-span-7 space-y-6 no-print">
 
-                    <!-- Card 1: Basic Employee Info & Base Salary -->
+                    <!-- Card 1: Basic Employee Info, Insurance Exemption & Base Salary -->
                     <div class="bg-white rounded-2xl shadow-sm border border-slate-200 overflow-hidden">
                         <div class="bg-slate-50 px-5 py-3.5 border-b border-slate-200 flex items-center justify-between">
                             <div class="flex items-center gap-2">
                                 <span class="bg-indigo-100 text-indigo-700 p-1.5 rounded-lg"><i data-lucide="user-check" class="w-4 h-4"></i></span>
-                                <h2 class="font-bold text-slate-800 text-sm sm:text-base">A. Thông Tin Nhân Viên & Lương Cơ Bản (基本情報・基本給)</h2>
+                                <h2 class="font-bold text-slate-800 text-sm sm:text-base">A. Thông Tin Nhân Viên & Chế Độ Bảo Hiểm (基本情報・保険加入区分)</h2>
                             </div>
                             <span class="text-xs font-medium text-slate-500">Đơn vị: JPY (円)</span>
                         </div>
-                        <div class="p-5 grid grid-cols-1 sm:grid-cols-2 gap-4">
-                            <div>
-                                <label class="block text-xs font-semibold text-slate-700 mb-1">Họ tên nhân viên (氏名)</label>
-                                <input type="text" id="empName" value="NGUYEN VAN A (グエン ヴァン A)" oninput="calculateMonthly()" class="w-full rounded-xl border border-slate-300 px-3.5 py-2 text-sm focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500 outline-none">
-                            </div>
-                            <div class="grid grid-cols-2 gap-2">
-                                <div>
-                                    <label class="block text-xs font-semibold text-slate-700 mb-1">Tháng lương (支給年月)</label>
-                                    <input type="month" id="payMonth" value="2026-11" onchange="calculateMonthly()" class="w-full rounded-xl border border-slate-300 px-3 py-2 text-sm focus:ring-2 focus:ring-indigo-500 outline-none">
+
+                        <div class="p-5 space-y-4">
+                            <!-- SPECIAL TOGGLE BOX: KHÔNG THAM GIA 社会保険 / 雇用保険 -->
+                            <div class="bg-amber-50/90 border-2 border-amber-300 rounded-2xl p-4 space-y-3">
+                                <div class="flex items-start gap-3">
+                                    <input type="checkbox" id="noSocialInsurance" onchange="handleInsuranceToggle(); calculateMonthly();" class="mt-1 w-5 h-5 text-amber-600 rounded border-amber-400 focus:ring-amber-500 cursor-pointer shrink-0">
+                                    <label for="noSocialInsurance" class="cursor-pointer select-none">
+                                        <span class="text-sm font-bold text-amber-950 flex flex-wrap items-center gap-1.5">
+                                            <span>Không tham gia Bảo hiểm xã hội (社会保険未加入)</span>
+                                            <span class="text-[11px] bg-amber-200/80 text-amber-900 px-2 py-0.5 rounded-full font-semibold">Diện phụ thuộc visa chồng/vợ 扶養 • Part-time</span>
+                                        </span>
+                                        <span class="text-xs text-amber-800 block mt-0.5">
+                                            Tự động đưa <b>健康保険 (BH Y tế)</b>, <b>介護保険</b> và <b>厚生年金 (BH Hưu trí)</b> của cả nhân viên và công ty về <b>0 円</b>.
+                                        </span>
+                                    </label>
                                 </div>
+
+                                <div class="pt-2.5 border-t border-amber-200/80 flex items-start gap-3 pl-1">
+                                    <input type="checkbox" id="noEmploymentInsurance" onchange="calculateMonthly();" class="mt-0.5 w-4 h-4 text-amber-600 rounded border-amber-400 focus:ring-amber-500 cursor-pointer shrink-0">
+                                    <label for="noEmploymentInsurance" class="cursor-pointer select-none text-xs text-amber-900">
+                                        <b>Không tham gia Bảo hiểm thất nghiệp (雇用保険未加入 - 0 円):</b> Tích chọn nếu nhân viên làm việc dưới 20 giờ/tuần. (Mặc định vẫn đóng 0.6% nếu làm từ 20h/tuần trở lên).
+                                    </label>
+                                </div>
+                            </div>
+
+                            <!-- Name, Month, Prefecture -->
+                            <div class="grid grid-cols-1 sm:grid-cols-2 gap-4 pt-1">
                                 <div>
-                                    <label class="block text-xs font-semibold text-slate-700 mb-1">Tỉnh/TP (都道府県)</label>
-                                    <select id="prefectureRate" onchange="calculateMonthly()" class="w-full rounded-xl border border-slate-300 px-2.5 py-2 text-sm focus:ring-2 focus:ring-indigo-500 outline-none bg-white">
-                                        <option value="9.78" selected>埼玉県 (Saitama - 9.78%)</option>
-                                        <option value="9.98">東京都 (Tokyo - 9.98%)</option>
-                                        <option value="10.02">神奈川県 (Kanagawa - 10.02%)</option>
-                                        <option value="9.79">千葉県 (Chiba - 9.79%)</option>
-                                        <option value="10.34">大阪府 (Osaka - 10.34%)</option>
-                                        <option value="10.02">愛知県 (Aichi - 10.02%)</option>
-                                        <option value="10.36">福岡県 (Fukuoka - 10.36%)</option>
+                                    <label class="block text-xs font-semibold text-slate-700 mb-1">Họ tên nhân viên (氏名)</label>
+                                    <input type="text" id="empName" value="NGUYEN VAN A (グエン ヴァン A)" oninput="calculateMonthly()" class="w-full rounded-xl border border-slate-300 px-3.5 py-2 text-sm focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500 outline-none">
+                                </div>
+                                <div class="grid grid-cols-2 gap-2">
+                                    <div>
+                                        <label class="block text-xs font-semibold text-slate-700 mb-1">Tháng lương (支給年月)</label>
+                                        <input type="month" id="payMonth" value="2026-11" onchange="calculateMonthly()" class="w-full rounded-xl border border-slate-300 px-3 py-2 text-sm focus:ring-2 focus:ring-indigo-500 outline-none">
+                                    </div>
+                                    <div>
+                                        <label class="block text-xs font-semibold text-slate-700 mb-1">Tỉnh/TP (都道府県)</label>
+                                        <select id="prefectureRate" onchange="calculateMonthly()" class="w-full rounded-xl border border-slate-300 px-2.5 py-2 text-sm focus:ring-2 focus:ring-indigo-500 outline-none bg-white disabled:bg-slate-100 disabled:text-slate-400">
+                                            <option value="9.78" selected>埼玉県 (Saitama - 9.78%)</option>
+                                            <option value="9.98">東京都 (Tokyo - 9.98%)</option>
+                                            <option value="10.02">神奈川県 (Kanagawa - 10.02%)</option>
+                                            <option value="9.79">千葉県 (Chiba - 9.79%)</option>
+                                            <option value="10.34">大阪府 (Osaka - 10.34%)</option>
+                                            <option value="10.02">愛知県 (Aichi - 10.02%)</option>
+                                            <option value="10.36">福岡県 (Fukuoka - 10.36%)</option>
+                                        </select>
+                                    </div>
+                                </div>
+
+                                <div>
+                                    <label class="block text-xs font-semibold text-slate-700 mb-1">Độ tuổi (年齢区分 - Tính 介護保険)</label>
+                                    <select id="ageGroup" onchange="calculateMonthly()" class="w-full rounded-xl border border-slate-300 px-3 py-2 text-sm focus:ring-2 focus:ring-indigo-500 outline-none bg-white disabled:bg-slate-100 disabled:text-slate-400">
+                                        <option value="under40" selected>Dưới 40 tuổi hoặc trên 65 (Không đóng 介護保険)</option>
+                                        <option value="40to64">Từ 40 ~ 64 tuổi (Có đóng 介護保険 +1.60% chia đôi)</option>
                                     </select>
                                 </div>
-                            </div>
 
-                            <div>
-                                <label class="block text-xs font-semibold text-slate-700 mb-1">Độ tuổi (年齢区分 - Tính 介護保険)</label>
-                                <select id="ageGroup" onchange="calculateMonthly()" class="w-full rounded-xl border border-slate-300 px-3 py-2 text-sm focus:ring-2 focus:ring-indigo-500 outline-none bg-white">
-                                    <option value="under40" selected>Dưới 40 tuổi hoặc trên 65 (Không đóng 介護保険)</option>
-                                    <option value="40to64">Từ 40 ~ 64 tuổi (Có đóng 介護保険 +1.60% chia đôi)</option>
-                                </select>
-                            </div>
-
-                            <div>
-                                <label class="block text-xs font-semibold text-slate-700 mb-1">Ngành nghề BH Lao động (労働保険業種)</label>
-                                <select id="industryType" onchange="calculateMonthly()" class="w-full rounded-xl border border-slate-300 px-3 py-2 text-sm focus:ring-2 focus:ring-indigo-500 outline-none bg-white">
-                                    <option value="general" selected>Ngành thông thường (一般の事業: NV 0.6% / CTY 1.25%)</option>
-                                    <option value="construction">Xây dựng / Nông lâm (建設業等: NV 0.7% / CTY 1.95%)</option>
-                                </select>
-                            </div>
-
-                            <div class="pt-2 border-t border-slate-100">
-                                <label class="block text-xs font-semibold text-slate-700 mb-1">Lương cơ bản (基本給)</label>
-                                <div class="relative">
-                                    <input type="number" id="baseSalary" value="230000" step="1000" min="0" oninput="calculateMonthly()" class="w-full rounded-xl border border-slate-300 pl-3.5 pr-10 py-2 text-sm font-semibold text-slate-900 focus:ring-2 focus:ring-indigo-500 outline-none">
-                                    <span class="absolute right-3 top-2 text-xs text-slate-400 font-bold">円</span>
+                                <div>
+                                    <label class="block text-xs font-semibold text-slate-700 mb-1">Ngành nghề BH Lao động (労働保険業種)</label>
+                                    <select id="industryType" onchange="calculateMonthly()" class="w-full rounded-xl border border-slate-300 px-3 py-2 text-sm focus:ring-2 focus:ring-indigo-500 outline-none bg-white">
+                                        <option value="general" selected>Ngành thông thường (一般の事業: NV 0.6% / CTY 1.25%)</option>
+                                        <option value="construction">Xây dựng / Nông lâm (建設業等: NV 0.7% / CTY 1.95%)</option>
+                                    </select>
                                 </div>
-                            </div>
 
-                            <div class="pt-2 border-t border-slate-100">
-                                <label class="block text-xs font-semibold text-slate-700 mb-1">Phụ cấp chức vụ / nhà ở / khác (諸手当・課税)</label>
-                                <div class="relative">
-                                    <input type="number" id="otherAllowance" value="20000" step="1000" min="0" oninput="calculateMonthly()" class="w-full rounded-xl border border-slate-300 pl-3.5 pr-10 py-2 text-sm font-semibold text-slate-900 focus:ring-2 focus:ring-indigo-500 outline-none">
-                                    <span class="absolute right-3 top-2 text-xs text-slate-400 font-bold">円</span>
-                                </div>
-                            </div>
-
-                            <div class="sm:col-span-2 bg-sky-50/70 p-3.5 rounded-xl border border-sky-200/80">
-                                <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-2">
-                                    <div>
-                                        <label class="block text-xs font-bold text-sky-900">Trợ cấp đi lại (通勤手当 - 非課税)</label>
-                                        <p class="text-[11px] text-sky-700">Miễn thuế thu nhập tối đa 150,000¥/tháng, nhưng <b>có cộng</b> vào tổng lương khi tính Bảo hiểm xã hội & BH thất nghiệp.</p>
+                                <div class="pt-2 border-t border-slate-100">
+                                    <label class="block text-xs font-semibold text-slate-700 mb-1">Lương cơ bản / Lương tháng (基本給)</label>
+                                    <div class="relative">
+                                        <input type="number" id="baseSalary" value="230000" step="1000" min="0" oninput="calculateMonthly()" class="w-full rounded-xl border border-slate-300 pl-3.5 pr-10 py-2 text-sm font-semibold text-slate-900 focus:ring-2 focus:ring-indigo-500 outline-none">
+                                        <span class="absolute right-3 top-2 text-xs text-slate-400 font-bold">円</span>
                                     </div>
-                                    <div class="relative w-full sm:w-48 shrink-0">
-                                        <input type="number" id="commutingAllowance" value="15000" step="500" min="0" oninput="calculateMonthly()" class="w-full rounded-xl border border-sky-300 bg-white pl-3.5 pr-10 py-2 text-sm font-bold text-sky-950 focus:ring-2 focus:ring-sky-500 outline-none">
-                                        <span class="absolute right-3 top-2 text-xs text-sky-500 font-bold">円</span>
+                                </div>
+
+                                <div class="pt-2 border-t border-slate-100">
+                                    <label class="block text-xs font-semibold text-slate-700 mb-1">Phụ cấp chức vụ / nhà ở / khác (諸手当・課税)</label>
+                                    <div class="relative">
+                                        <input type="number" id="otherAllowance" value="20000" step="1000" min="0" oninput="calculateMonthly()" class="w-full rounded-xl border border-slate-300 pl-3.5 pr-10 py-2 text-sm font-semibold text-slate-900 focus:ring-2 focus:ring-indigo-500 outline-none">
+                                        <span class="absolute right-3 top-2 text-xs text-slate-400 font-bold">円</span>
+                                    </div>
+                                </div>
+
+                                <div class="sm:col-span-2 bg-sky-50/70 p-3.5 rounded-xl border border-sky-200/80">
+                                    <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-2">
+                                        <div>
+                                            <label class="block text-xs font-bold text-sky-900">Trợ cấp đi lại (通勤手当 - 非課税)</label>
+                                            <p class="text-[11px] text-sky-700">Miễn thuế thu nhập tối đa 150,000¥/tháng, nhưng <b>có cộng</b> vào tổng lương khi tính Bảo hiểm xã hội & BH thất nghiệp.</p>
+                                        </div>
+                                        <div class="relative w-full sm:w-48 shrink-0">
+                                            <input type="number" id="commutingAllowance" value="15000" step="500" min="0" oninput="calculateMonthly()" class="w-full rounded-xl border border-sky-300 bg-white pl-3.5 pr-10 py-2 text-sm font-bold text-sky-950 focus:ring-2 focus:ring-sky-500 outline-none">
+                                            <span class="absolute right-3 top-2 text-xs text-sky-500 font-bold">円</span>
+                                        </div>
                                     </div>
                                 </div>
                             </div>
@@ -226,7 +236,6 @@
                         </div>
 
                         <div class="p-5 space-y-4">
-                            <!-- Standard Monthly Working Hours & Base Option -->
                             <div class="grid grid-cols-1 sm:grid-cols-2 gap-4 pb-3 border-b border-slate-100">
                                 <div>
                                     <label class="block text-xs font-semibold text-slate-700 mb-1">Số giờ chuẩn 1 tháng (月平均所定労働時間)</label>
@@ -245,9 +254,7 @@
                                 </div>
                             </div>
 
-                            <!-- Overtime Rows -->
                             <div class="grid grid-cols-1 sm:grid-cols-2 gap-3.5">
-                                <!-- 1. Normal Overtime 1.25 -->
                                 <div class="p-3 rounded-xl border border-slate-200 bg-slate-50/50 flex flex-col justify-between">
                                     <div class="flex justify-between items-start mb-2">
                                         <div>
@@ -262,7 +269,6 @@
                                     </div>
                                 </div>
 
-                                <!-- 2. Overtime > 60h 1.50 -->
                                 <div class="p-3 rounded-xl border border-slate-200 bg-slate-50/50 flex flex-col justify-between">
                                     <div class="flex justify-between items-start mb-2">
                                         <div>
@@ -277,7 +283,6 @@
                                     </div>
                                 </div>
 
-                                <!-- 3. Late Night Overtime (22:00 - 05:00) 1.50 -->
                                 <div class="p-3 rounded-xl border border-slate-200 bg-slate-50/50 flex flex-col justify-between">
                                     <div class="flex justify-between items-start mb-2">
                                         <div>
@@ -292,7 +297,6 @@
                                     </div>
                                 </div>
 
-                                <!-- 4. Statutory Holiday Work 1.35 -->
                                 <div class="p-3 rounded-xl border border-slate-200 bg-slate-50/50 flex flex-col justify-between">
                                     <div class="flex justify-between items-start mb-2">
                                         <div>
@@ -315,14 +319,14 @@
                         <div class="bg-slate-50 px-5 py-3.5 border-b border-slate-200 flex items-center justify-between">
                             <div class="flex items-center gap-2">
                                 <span class="bg-emerald-100 text-emerald-700 p-1.5 rounded-lg"><i data-lucide="shield-check" class="w-4 h-4"></i></span>
-                                <h2 class="font-bold text-slate-800 text-sm sm:text-base">C. Cấu Hình Bảo Hiểm, Người Phụ Thuộc & Thuế (保険・扶養・住民税)</h2>
+                                <h2 class="font-bold text-slate-800 text-sm sm:text-base">C. Cấu Hình Bậc Lương Chuẩn, Người Phụ Thuộc & Thuế (標準報酬・扶養・住民税)</h2>
                             </div>
                         </div>
 
                         <div class="p-5 grid grid-cols-1 sm:grid-cols-2 gap-4">
                             <div>
                                 <label class="block text-xs font-semibold text-slate-700 mb-1">Chế độ tính 標準報酬月額 (Mức lương chuẩn BHXH)</label>
-                                <select id="stdRemunerationMode" onchange="toggleManualStdRemuneration(); calculateMonthly();" class="w-full rounded-xl border border-slate-300 px-3 py-2 text-sm bg-white focus:ring-2 focus:ring-indigo-500 outline-none">
+                                <select id="stdRemunerationMode" onchange="toggleManualStdRemuneration(); calculateMonthly();" class="w-full rounded-xl border border-slate-300 px-3 py-2 text-sm bg-white focus:ring-2 focus:ring-indigo-500 outline-none disabled:bg-slate-100 disabled:text-slate-400">
                                     <option value="auto" selected>Tự động tra bậc theo Tổng thu nhập (自動算出)</option>
                                     <option value="manual">Nhập mức lương chuẩn cố định (手入力)</option>
                                 </select>
@@ -337,8 +341,8 @@
                                 <label class="block text-xs font-semibold text-slate-700 mb-1">Số người phụ thuộc (扶養親族等の数)</label>
                                 <select id="dependentsCount" onchange="calculateMonthly()" class="w-full rounded-xl border border-slate-300 px-3 py-2 text-sm bg-white focus:ring-2 focus:ring-indigo-500 outline-none">
                                     <option value="0" selected>0 người (独身・扶養なし)</option>
-                                    <option value="1">1 người (扶養 1人 - Vợ/chồng hoặc 1 con/bố mẹ)</option>
-                                    <option value="2">2 người (扶養 2人 - VD: Vợ + 1 bố/mẹ ở VN)</option>
+                                    <option value="1">1 người (扶養 1人)</option>
+                                    <option value="2">2 người (扶養 2人)</option>
                                     <option value="3">3 người (扶養 3人)</option>
                                     <option value="4">4 người (扶養 4人)</option>
                                     <option value="5">5 người (扶養 5人)</option>
@@ -348,8 +352,8 @@
                             <div>
                                 <label class="block text-xs font-semibold text-slate-700 mb-1">Bảng tính thuế thu nhập (源泉徴収税額表)</label>
                                 <select id="taxColumnType" onchange="calculateMonthly()" class="w-full rounded-xl border border-slate-300 px-3 py-2 text-sm bg-white focus:ring-2 focus:ring-indigo-500 outline-none">
-                                    <option value="kou" selected>Bảng A - 甲欄 (Nhân viên chính thức có nộp 扶養控除申告書)</option>
-                                    <option value="otsu">Bảng B - 乙欄 (Làm thêm công ty thứ 2 / Khấu trừ cao)</option>
+                                    <option value="kou" selected>Bảng A - 甲欄 (Nộp 扶養控除申告書 tại công ty này)</option>
+                                    <option value="otsu">Bảng B - 乙欄 (Làm thêm chỗ thứ 2 / Không nộp tờ khai)</option>
                                 </select>
                             </div>
 
@@ -371,10 +375,13 @@
                         <div class="bg-gradient-to-r from-slate-900 via-indigo-950 to-slate-900 text-white p-5">
                             <div class="flex items-center justify-between border-b border-slate-700/80 pb-3 mb-3">
                                 <div>
-                                    <span class="text-[11px] uppercase tracking-wider text-indigo-300 font-semibold block">給与明細書 (PAYSLIP)</span>
-                                    <h3 id="slipEmpName" class="text-lg font-bold truncate">NGUYEN VAN A</h3>
+                                    <div class="flex items-center gap-2">
+                                        <span class="text-[11px] uppercase tracking-wider text-indigo-300 font-semibold">給与明細書 (PAYSLIP)</span>
+                                        <span id="slipShakaiStatusBadge" class="text-[10px] bg-emerald-500/20 text-emerald-300 border border-emerald-400/30 px-2 py-0.5 rounded-full font-bold">社会保険 加入</span>
+                                    </div>
+                                    <h3 id="slipEmpName" class="text-lg font-bold truncate mt-0.5">NGUYEN VAN A</h3>
                                 </div>
-                                <div class="text-right">
+                                <div class="text-right shrink-0">
                                     <span class="text-xs text-slate-400 block">Kỳ lương (支給年月)</span>
                                     <span id="slipPayMonth" class="text-sm font-bold text-amber-400">2026年11月</span>
                                 </div>
@@ -387,7 +394,7 @@
                                     <span class="text-[11px] text-slate-300">Tổng thu nhập - Tổng khấu trừ</span>
                                 </div>
                                 <div class="text-right">
-                                    <span id="resNetPay" class="text-2xl sm:text-3xl font-extrabold text-emerald-400 tracking-tight">239,120</span>
+                                    <span id="resNetPay" class="text-2xl sm:text-3xl font-extrabold text-emerald-400 tracking-tight">235,791</span>
                                     <span class="text-sm font-bold text-emerald-300">円</span>
                                 </div>
                             </div>
@@ -426,10 +433,10 @@
                             <div>
                                 <div class="flex items-center justify-between text-xs font-bold text-slate-500 uppercase tracking-wider border-b border-slate-200 pb-1.5 mb-2">
                                     <div>
-                                        <span>II. Bảo Hiểm Xã Hội & Lao Động (社会・雇用保険)</span>
+                                        <span>II. Bảo Hiểm Xã Hội & Lao Động</span>
                                         <span id="stdRemunerationBadge" class="ml-1 text-[11px] bg-slate-100 text-slate-700 px-1.5 py-0.5 rounded font-semibold">標準報酬: 300,000円</span>
                                     </div>
-                                    <span id="resTotalInsuranceEmp" class="text-rose-600 text-sm">-44,186 円</span>
+                                    <span id="resTotalInsuranceEmp" class="text-rose-600 text-sm">-43,886 円</span>
                                 </div>
                                 <div class="space-y-1.5 text-xs sm:text-sm">
                                     <div class="flex justify-between text-slate-700">
@@ -445,7 +452,7 @@
                                         <span id="slipPensionIns" class="font-medium text-rose-600">27,450 円</span>
                                     </div>
                                     <div class="flex justify-between text-slate-700">
-                                        <span>4. BH Thất nghiệp (雇用保険 - thuộc 労働保険)</span>
+                                        <span>4. BH Thất nghiệp (雇用保険 - 労働保険)</span>
                                         <span id="slipEmploymentIns" class="font-medium text-rose-600">1,766 円</span>
                                     </div>
                                 </div>
@@ -456,14 +463,14 @@
                                 <div class="flex items-center justify-between text-xs font-bold text-slate-500 uppercase tracking-wider border-b border-slate-200 pb-1.5 mb-2">
                                     <div>
                                         <span>III. Thuế Khấu Trừ (所得税・住民税)</span>
-                                        <span id="taxableIncomeBadge" class="ml-1 text-[11px] bg-amber-50 text-amber-800 border border-amber-200 px-1.5 py-0.5 rounded font-semibold">課税対象: 235,111円</span>
+                                        <span id="taxableIncomeBadge" class="ml-1 text-[11px] bg-amber-50 text-amber-800 border border-amber-200 px-1.5 py-0.5 rounded font-semibold">課税対象: 235,411円</span>
                                     </div>
-                                    <span id="resTotalTaxEmp" class="text-rose-600 text-sm">-14,490 円</span>
+                                    <span id="resTotalTaxEmp" class="text-rose-600 text-sm">-14,620 円</span>
                                 </div>
                                 <div class="space-y-1.5 text-xs sm:text-sm">
                                     <div class="flex justify-between text-slate-700">
                                         <span>Thuế thu nhập tạm thu (源泉所得税)</span>
-                                        <span id="slipIncomeTax" class="font-bold text-rose-600">5,990 円</span>
+                                        <span id="slipIncomeTax" class="font-bold text-rose-600">6,120 円</span>
                                     </div>
                                     <div class="flex justify-between text-slate-700">
                                         <span>Thuế thị dân (住民税)</span>
@@ -479,15 +486,15 @@
                                         <i data-lucide="building-2" class="w-4 h-4 text-indigo-600"></i>
                                         Phần Công Ty Đóng Thêm (会社負担・労働保険)
                                     </span>
-                                    <span id="slipCompanyTotal" class="text-xs font-bold text-indigo-700">+46,129 円</span>
+                                    <span id="slipCompanyTotal" class="text-xs font-bold text-indigo-700">+46,879 円</span>
                                 </div>
                                 <div class="grid grid-cols-2 gap-2 text-[11px] text-slate-600 pt-1 border-t border-slate-200">
-                                    <div>• 社会保険 (Y tế + Nenkin CTY): <strong id="slipCompanyShakai" class="text-slate-800">42,120 円</strong></div>
+                                    <div>• 社会保険 (Y tế+Nenkin+子育て): <strong id="slipCompanyShakai" class="text-slate-800">43,200 円</strong></div>
                                     <div>• 労働保険 (雇用 + 労災 CTY): <strong id="slipCompanyRoudou" class="text-slate-800">3,679 円</strong></div>
                                 </div>
                                 <div class="text-xs font-semibold text-slate-800 flex justify-between pt-1 border-t border-slate-200">
                                     <span>Tổng chi phí nhân sự thực tế (総人件費):</span>
-                                    <span id="slipTotalCompanyCost" class="text-indigo-900 font-bold">340,096 円/tháng</span>
+                                    <span id="slipTotalCompanyCost" class="text-indigo-900 font-bold">341,176 円/tháng</span>
                                 </div>
                             </div>
 
@@ -495,7 +502,7 @@
                             <div class="grid grid-cols-1 sm:grid-cols-2 gap-2.5 pt-2 no-print">
                                 <button onclick="transferToNenmatsu()" class="w-full bg-indigo-600 hover:bg-indigo-700 text-white font-semibold py-2.5 px-4 rounded-xl shadow-sm transition flex items-center justify-center gap-2 text-xs sm:text-sm">
                                     <i data-lucide="arrow-right-circle" class="w-4 h-4"></i>
-                                    <span>Chuyển sang tính 年末調整 (x12 tháng)</span>
+                                    <span>Chuyển sang 年末調整 (x12 tháng)</span>
                                 </button>
                                 <div class="flex gap-2">
                                     <button onclick="saveEmployeeRecord()" class="flex-1 bg-emerald-600 hover:bg-emerald-700 text-white font-semibold py-2.5 px-3 rounded-xl shadow-sm transition flex items-center justify-center gap-1.5 text-xs sm:text-sm">
@@ -520,14 +527,13 @@
         <!-- ===================================================================== -->
         <section id="tabContent-nenmatsu" class="hidden space-y-6">
             
-            <!-- Top Banner Explanation -->
             <div class="bg-gradient-to-r from-indigo-900 via-slate-900 to-indigo-950 text-white rounded-2xl p-5 shadow-sm no-print flex flex-col md:flex-row items-start md:items-center justify-between gap-4">
                 <div class="space-y-1">
                     <div class="flex items-center gap-2">
                         <span class="bg-amber-400/20 text-amber-300 border border-amber-400/40 text-xs font-bold px-2.5 py-0.5 rounded-full">年末調整・源泉徴収票シミュレーター</span>
                         <h2 class="text-lg font-bold">Quyết Toán Thuế Cuối Năm & Tạo Phiếu Khấu Trừ Thuế (源泉徴収票)</h2>
                     </div>
-                    <p class="text-xs text-slate-300">Tính toán chính xác 4 chỉ số cốt lõi trên phiếu 源泉徴収票, tự động đối chiếu số thuế đã tạm nộp hàng tháng để tính <b>Tiền hoàn thuế (還付金)</b> hoặc <b>Nộp thêm (徴収額)</b>.</p>
+                    <p class="text-xs text-slate-300">Tự động đồng bộ dữ liệu 12 tháng từ Tab 1 (bao gồm cả trường hợp không đóng 社会保険 = 0 円) để tính <b>Tiền hoàn thuế (還付金)</b> hoặc <b>Nộp thêm (徴収額)</b>.</p>
                 </div>
                 <div class="flex items-center gap-2 shrink-0">
                     <button onclick="transferToNenmatsu()" class="bg-white/10 hover:bg-white/20 text-white border border-white/20 text-xs font-semibold px-3.5 py-2 rounded-xl transition flex items-center gap-1.5">
@@ -544,7 +550,6 @@
                 <!-- LEFT: NENMATSU CHOSEI INPUTS (6 Cols) -->
                 <div class="lg:col-span-6 space-y-6 no-print">
 
-                    <!-- 1. Annual Income & Withheld Totals -->
                     <div class="bg-white rounded-2xl shadow-sm border border-slate-200 overflow-hidden">
                         <div class="bg-slate-50 px-5 py-3.5 border-b border-slate-200 flex items-center justify-between">
                             <div class="flex items-center gap-2">
@@ -587,17 +592,16 @@
 
                             <div>
                                 <label class="block text-xs font-semibold text-slate-700 mb-1">Tổng BHXH + BHTN đã đóng (社会保険料等の金額)</label>
-                                <input type="number" id="ycAnnualSocialIns" value="580000" step="5000" min="0" oninput="calculateNenmatsu()" class="w-full rounded-xl border border-slate-300 px-3 py-2 text-sm font-semibold focus:ring-2 focus:ring-indigo-500 outline-none">
+                                <input type="number" id="ycAnnualSocialIns" value="526632" step="5000" min="0" oninput="calculateNenmatsu()" class="w-full rounded-xl border border-slate-300 px-3 py-2 text-sm font-semibold focus:ring-2 focus:ring-indigo-500 outline-none">
                             </div>
 
                             <div>
                                 <label class="block text-xs font-semibold text-amber-800 mb-1">Tổng thuế TN đã tạm thu (源泉徴収済税額)</label>
-                                <input type="number" id="ycWithheldTaxPaid" value="85000" step="1000" min="0" oninput="calculateNenmatsu()" class="w-full rounded-xl border border-amber-300 bg-amber-50/50 px-3 py-2 text-sm font-bold text-amber-950 focus:ring-2 focus:ring-amber-500 outline-none">
+                                <input type="number" id="ycWithheldTaxPaid" value="73440" step="1000" min="0" oninput="calculateNenmatsu()" class="w-full rounded-xl border border-amber-300 bg-amber-50/50 px-3 py-2 text-sm font-bold text-amber-950 focus:ring-2 focus:ring-amber-500 outline-none">
                             </div>
                         </div>
                     </div>
 
-                    <!-- 2. Family & Personal Tax Deductions (所得控除項目) -->
                     <div class="bg-white rounded-2xl shadow-sm border border-slate-200 overflow-hidden">
                         <div class="bg-slate-50 px-5 py-3.5 border-b border-slate-200 flex items-center justify-between">
                             <div class="flex items-center gap-2">
@@ -621,7 +625,7 @@
                                 <select id="ycGeneralDepCount" onchange="calculateNenmatsu()" class="w-full rounded-xl border border-slate-300 px-3 py-2 text-sm bg-white focus:ring-2 focus:ring-indigo-500 outline-none">
                                     <option value="0" selected>0 người (0 円)</option>
                                     <option value="1">1 người (380,000 円)</option>
-                                    <option value="2">2 người (760,000 円 - VD: Bố + Mẹ)</option>
+                                    <option value="2">2 người (760,000 円)</option>
                                     <option value="3">3 người (1,140,000 円)</option>
                                     <option value="4">4 người (1,520,000 円)</option>
                                 </select>
@@ -651,7 +655,7 @@
                             </div>
 
                             <div>
-                                <label class="block text-xs font-semibold text-slate-700 mb-1">Khấu trừ vay mua nhà (住宅借入金等特別控除 - Trừ thuế)</label>
+                                <label class="block text-xs font-semibold text-slate-700 mb-1">Khấu trừ vay mua nhà (住宅借入金等特別控除)</label>
                                 <input type="number" id="ycHousingLoanCredit" value="0" step="10000" min="0" oninput="calculateNenmatsu()" class="w-full rounded-xl border border-slate-300 px-3 py-2 text-sm font-semibold focus:ring-2 focus:ring-indigo-500 outline-none">
                             </div>
                         </div>
@@ -669,12 +673,12 @@
                             </span>
                             <h3 class="text-base font-bold text-slate-100">Kết Quả Điều Chỉnh Cuối Năm (年末調整結果)</h3>
                             <p class="text-xs text-emerald-200/90">
-                                Đã tạm thu: <strong id="ycBannerWithheld">85,000 円</strong> | Thuế chính thức cả năm: <strong id="ycBannerFinalTax">62,400 円</strong>
+                                Đã tạm thu: <strong id="ycBannerWithheld">73,440 円</strong> | Thuế chính thức cả năm: <strong id="ycBannerFinalTax">79,200 円</strong>
                             </p>
                         </div>
                         <div class="text-right shrink-0 bg-white/10 px-4 py-3 rounded-xl border border-white/15">
                             <span id="ycDiffLabel" class="text-xs text-emerald-300 block font-medium">Số tiền được hoàn trả (還付金)</span>
-                            <span id="ycDiffAmount" class="text-2xl sm:text-3xl font-extrabold text-emerald-400">+22,600 円</span>
+                            <span id="ycDiffAmount" class="text-2xl sm:text-3xl font-extrabold text-emerald-400">0 円</span>
                         </div>
                     </div>
 
@@ -687,11 +691,9 @@
                             <p class="text-[11px] text-slate-500 mt-0.5">Phiếu Khấu Trừ Thuế Thu Nhập Tại Nguồn (Chuẩn mẫu Cơ quan Thuế Quốc gia Nhật Bản)</p>
                         </div>
 
-                        <!-- Official Table Layout -->
                         <div class="overflow-x-auto">
                             <table class="w-full gensen-table text-xs">
                                 <tbody>
-                                    <!-- Row 1: Recipient Info -->
                                     <tr>
                                         <th class="bg-slate-100 w-24 p-2 text-center font-bold">
                                             住所又は居所<br><span class="text-[10px] font-normal text-slate-500">(Địa chỉ)</span>
@@ -703,7 +705,6 @@
                                         <td id="gensenName" class="p-2 font-bold text-sm text-indigo-950">NGUYEN VAN A</td>
                                     </tr>
 
-                                    <!-- Row 2: THE 4 CORE BOXES HEADER -->
                                     <tr class="bg-slate-100 text-center font-bold">
                                         <th class="p-1.5">
                                             区分<br><span class="text-[10px] font-normal text-slate-500">(Phân loại)</span>
@@ -722,18 +723,16 @@
                                         </th>
                                     </tr>
 
-                                    <!-- Row 3: THE 4 CORE BOXES VALUES -->
                                     <tr class="text-right font-bold text-sm sm:text-base">
                                         <td class="text-center font-semibold text-xs p-2 bg-slate-50">
-                                            中途就・退職<br><span class="text-[10px] text-slate-500">年末調整済</span>
+                                            年末調整済
                                         </td>
                                         <td id="gensenBox1" class="p-3 gensen-thick-box text-slate-900">3,751,564 円</td>
                                         <td id="gensenBox2" class="p-3 gensen-thick-box text-indigo-900">2,561,200 円</td>
-                                        <td id="gensenBox3" class="p-3 gensen-thick-box text-emerald-900">1,060,000 円</td>
-                                        <td id="gensenBox4" class="p-3 gensen-thick-box text-rose-700">76,500 円</td>
+                                        <td id="gensenBox3" class="p-3 gensen-thick-box text-emerald-900">1,006,632 円</td>
+                                        <td id="gensenBox4" class="p-3 gensen-thick-box text-rose-700">79,200 円</td>
                                     </tr>
 
-                                    <!-- Row 4: Dependents & Social Insurance Breakdown -->
                                     <tr class="bg-slate-100 text-center font-semibold text-[11px]">
                                         <th class="p-1.5">控除対象配偶者の有無<br><span class="font-normal text-slate-500">(Có vợ/chồng PT)</span></th>
                                         <th class="p-1.5">配偶者(特別)控除の額<br><span class="font-normal text-slate-500">(Mức giảm trừ vợ/chồng)</span></th>
@@ -745,17 +744,16 @@
                                         <td id="gensenHasSpouse" class="p-2.5">無 (Không)</td>
                                         <td id="gensenSpouseAmt" class="p-2.5 text-right">0 円</td>
                                         <td id="gensenDepSummary" class="p-2.5">0 人 (0 / 0 / 0)</td>
-                                        <td id="gensenSocialIns" class="p-2.5 text-right font-bold">580,000 円</td>
+                                        <td id="gensenSocialIns" class="p-2.5 text-right font-bold">526,632 円</td>
                                         <td id="gensenLifeIns" class="p-2.5 text-right">0 円</td>
                                     </tr>
 
-                                    <!-- Row 5: Remarks & Employer Info -->
                                     <tr>
                                         <th class="bg-slate-100 p-2 text-center font-bold">
                                             摘要<br><span class="text-[10px] font-normal text-slate-500">(Ghi chú)</span>
                                         </th>
                                         <td colspan="4" id="gensenRemarks" class="p-2 text-[11px] text-slate-700">
-                                            基礎控除額: 480,000円 / 給与所得控除額: 1,190,364円 / 課税給与所得金額: 1,501,000円 / 年調還付・徴収額: +8,500円
+                                            基礎控除額: 480,000円 / 給与所得控除額: 1,190,364円 / 課税給与所得金額: 1,554,000円
                                         </td>
                                     </tr>
                                     <tr>
@@ -771,7 +769,6 @@
                             </table>
                         </div>
 
-                        <!-- Step-by-step Formula Breakdown below Gensen -->
                         <div class="mt-4 bg-slate-50 rounded-xl p-3.5 border border-slate-200 text-xs space-y-1.5">
                             <h4 class="font-bold text-slate-800 flex items-center gap-1.5">
                                 <i data-lucide="info" class="w-4 h-4 text-indigo-600"></i>
@@ -780,8 +777,8 @@
                             <div class="grid grid-cols-1 sm:grid-cols-2 gap-2 text-[11px] text-slate-600 pt-1">
                                 <div>• <b>Khấu trừ thu nhập lương (給与所得控除):</b> <span id="expEmploymentDeduction" class="font-bold text-slate-900">1,190,364 円</span></div>
                                 <div>• <b>Khấu trừ cơ bản (基礎控除):</b> <span id="expBasicDeduction" class="font-bold text-slate-900">480,000 円</span></div>
-                                <div>• <b>Thu nhập chịu thuế ròng (課税給与所得金額):</b> <span id="expTaxableIncome" class="font-bold text-indigo-700">1,501,000 円</span></div>
-                                <div>• <b>Thuế luỹ tiến + 2.1% Tái thiết (年調年税額):</b> <span id="expFinalTax" class="font-bold text-rose-700">76,500 円</span></div>
+                                <div>• <b>Thu nhập chịu thuế ròng (課税給与所得金額):</b> <span id="expTaxableIncome" class="font-bold text-indigo-700">1,554,000 円</span></div>
+                                <div>• <b>Thuế luỹ tiến + 2.1% Tái thiết (年調年税額):</b> <span id="expFinalTax" class="font-bold text-rose-700">79,200 円</span></div>
                             </div>
                         </div>
                     </div>
@@ -795,12 +792,12 @@
         <!-- ===================================================================== -->
         <section id="tabContent-employees" class="hidden space-y-6">
             <div class="bg-white rounded-2xl shadow-sm border border-slate-200 overflow-hidden">
-                <div class="bg-slate-50 px-5 py-4 border-b border-slate-200 flex items-center justify-between">
+                <div class="bg-slate-50 px-5 py-4 border-b border-slate-200 flex flex-wrap items-center justify-between gap-2">
                     <div class="flex items-center gap-2">
                         <span class="bg-indigo-100 text-indigo-700 p-1.5 rounded-lg"><i data-lucide="users" class="w-5 h-5"></i></span>
                         <div>
-                            <h2 class="font-bold text-slate-800 text-base">Danh Sách Bảng Lương Nhân Viên Đã Lưu (保存済み給与データ一覧)</h2>
-                            <p class="text-xs text-slate-500">Bấm "Tải vào 年末調整" để tự động tính quyết toán thuế cuối năm cho từng nhân viên.</p>
+                            <h2 class="font-bold text-slate-800 text-base">Danh Sách Bảng Lương Nhân Viên Đã Lưu (Tự động lưu trên trình duyệt)</h2>
+                            <p class="text-xs text-slate-500">Dữ liệu được lưu vào LocalStorage của trình duyệt. Bấm "Tải vào 年末調整" để tính quyết toán thuế cuối năm.</p>
                         </div>
                     </div>
                 </div>
@@ -810,10 +807,11 @@
                         <thead>
                             <tr class="bg-slate-100 text-slate-700 border-b border-slate-200 font-bold">
                                 <th class="p-3">Họ tên (氏名)</th>
+                                <th class="p-3">Chế độ BHXH</th>
                                 <th class="p-3">Kỳ lương</th>
-                                <th class="p-3 text-right">Tổng thu nhập (総支給)</th>
-                                <th class="p-3 text-right">BHXH + BHTN (社保・雇保)</th>
-                                <th class="p-3 text-right">Thuế TN (源泉税)</th>
+                                <th class="p-3 text-right">Tổng thu nhập</th>
+                                <th class="p-3 text-right">BHXH + BHTN</th>
+                                <th class="p-3 text-right">Thuế TN</th>
                                 <th class="p-3 text-right">Thực nhận (手取り)</th>
                                 <th class="p-3 text-center">Thao tác</th>
                             </tr>
@@ -828,12 +826,11 @@
 
     </main>
 
-    <!-- Footer -->
     <footer class="bg-white border-t border-slate-200 py-4 mt-8 no-print">
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex flex-col sm:flex-row items-center justify-between text-xs text-slate-500 gap-2">
             <div>© 2026 JP-VN Payroll & Tax Calculator System. Tích hợp biểu thuế Nhật Bản (源泉徴収税額表・年末調整・協会けんぽ).</div>
             <div class="flex items-center gap-4">
-                <span>Hỗ trợ: 社会保険・労働保険・割増残業・源泉徴収票</span>
+                <span>Hỗ trợ: 社会保険（未加入対応）・労働保険・割増残業・源泉徴収票</span>
             </div>
         </div>
     </footer>
@@ -842,7 +839,6 @@
     <!-- APPLICATION JAVASCRIPT LOGIC                                          -->
     <!-- ===================================================================== -->
     <script>
-        // Standard Monthly Remuneration Grades Table (標準報酬月額等級表 - Simplified accurate brackets)
         const stdRemunerationBrackets = [
             { min: 0, max: 63000, std: 58000 },
             { min: 63000, max: 73000, std: 68000 },
@@ -881,41 +877,61 @@
             { min: 635000, max: 99999999, std: 650000 }
         ];
 
-        // Saved employees state (Pre-populated with 2 sample records)
-        let savedEmployees = [
-            {
-                id: 1,
-                name: "NGUYEN VAN A (グエン ヴァン A)",
-                month: "2026-11",
-                grossPay: 294297,
-                taxableSalary: 279297,
-                totalSocialInsEmp: 43886,
-                incomeTax: 6120,
-                netPay: 235791,
-                dependents: 0
-            },
-            {
-                id: 2,
-                name: "TRAN THI B (チャン ティ B)",
-                month: "2026-11",
-                grossPay: 418500,
-                taxableSalary: 403500,
-                totalSocialInsEmp: 61851,
-                incomeTax: 6850,
-                netPay: 337799,
-                dependents: 2
-            }
-        ];
-
-        // Current calculated monthly state for instant transfer
+        const STORAGE_KEY = 'jp_vn_payroll_saved_employees_v2';
+        let savedEmployees = [];
         let currentMonthlyState = {};
 
-        // Format currency helper
+        function loadSavedEmployeesFromStorage() {
+            try {
+                const raw = localStorage.getItem(STORAGE_KEY);
+                if (raw) {
+                    savedEmployees = JSON.parse(raw);
+                    return;
+                }
+            } catch (e) {
+                console.warn('LocalStorage read error', e);
+            }
+            // Default initial samples
+            savedEmployees = [
+                {
+                    id: 1,
+                    name: "PHAM THI D (ファム ティ D - Visa Gia Đình)",
+                    noSocial: true,
+                    month: "2026-11",
+                    grossPay: 105000,
+                    taxableSalary: 95000,
+                    totalSocialInsEmp: 570,
+                    incomeTax: 320,
+                    netPay: 104110,
+                    dependents: 0
+                },
+                {
+                    id: 2,
+                    name: "NGUYEN VAN A (グエン ヴァン A)",
+                    noSocial: false,
+                    month: "2026-11",
+                    grossPay: 294297,
+                    taxableSalary: 279297,
+                    totalSocialInsEmp: 43886,
+                    incomeTax: 6120,
+                    netPay: 235791,
+                    dependents: 0
+                }
+            ];
+        }
+
+        function persistSavedEmployees() {
+            try {
+                localStorage.setItem(STORAGE_KEY, JSON.stringify(savedEmployees));
+            } catch (e) {
+                console.warn('LocalStorage write error', e);
+            }
+        }
+
         function fmtJPY(num) {
             return Math.round(num).toLocaleString('ja-JP');
         }
 
-        // Show Toast notification
         function showToast(msg) {
             const box = document.getElementById('toastBox');
             document.getElementById('toastMessage').textContent = msg;
@@ -925,7 +941,6 @@
             }, 3000);
         }
 
-        // Switch Tabs
         function switchTab(tabName) {
             const tabs = ['monthly', 'nenmatsu', 'employees'];
             tabs.forEach(t => {
@@ -933,27 +948,39 @@
                 const btn = document.getElementById(`tabBtn-${t}`);
                 if (t === tabName) {
                     content.classList.remove('hidden');
-                    btn.className = "px-5 py-2.5 text-sm font-semibold rounded-t-xl transition flex items-center gap-2 bg-indigo-600 text-white shadow";
+                    btn.className = "px-5 py-2.5 text-sm font-semibold rounded-t-xl transition flex items-center gap-2 bg-indigo-600 text-white shadow shrink-0";
                 } else {
                     content.classList.add('hidden');
-                    btn.className = "px-5 py-2.5 text-sm font-semibold rounded-t-xl transition flex items-center gap-2 bg-slate-800/70 text-slate-300 hover:bg-slate-800 hover:text-white";
+                    btn.className = "px-5 py-2.5 text-sm font-semibold rounded-t-xl transition flex items-center gap-2 bg-slate-800/70 text-slate-300 hover:bg-slate-800 hover:text-white shrink-0";
                 }
             });
             if (tabName === 'employees') renderSavedEmployees();
         }
 
-        // Toggle Manual Standard Remuneration Input
+        // Enable/disable Shakai Hoken dependent inputs when toggled
+        function handleInsuranceToggle() {
+            const noSocial = document.getElementById('noSocialInsurance').checked;
+            document.getElementById('prefectureRate').disabled = noSocial;
+            document.getElementById('ageGroup').disabled = noSocial;
+            document.getElementById('stdRemunerationMode').disabled = noSocial;
+            if (noSocial) {
+                document.getElementById('manualStdRemunerationBox').classList.add('hidden');
+            } else {
+                toggleManualStdRemuneration();
+            }
+        }
+
         function toggleManualStdRemuneration() {
             const mode = document.getElementById('stdRemunerationMode').value;
+            const noSocial = document.getElementById('noSocialInsurance').checked;
             const box = document.getElementById('manualStdRemunerationBox');
-            if (mode === 'manual') {
+            if (mode === 'manual' && !noSocial) {
                 box.classList.remove('hidden');
             } else {
                 box.classList.add('hidden');
             }
         }
 
-        // Look up Standard Monthly Remuneration (標準報酬月額)
         function getStandardRemuneration(grossPay) {
             for (const b of stdRemunerationBrackets) {
                 if (grossPay >= b.min && grossPay < b.max) {
@@ -963,21 +990,15 @@
             return 650000;
         }
 
-        // Calculate Monthly Withholding Income Tax (源泉徴収税額表 - 甲欄 & 乙欄 accurate formula)
         function calculateMonthlyWithholdingTax(taxableMonthlyAfterIns, dependents, columnType) {
             if (taxableMonthlyAfterIns <= 88000 && columnType === 'kou') return 0;
 
             if (columnType === 'otsu') {
-                // Otsu-ran (Secondary job withholding rate ~3.063% up to higher brackets)
                 if (taxableMonthlyAfterIns <= 88000) return Math.floor(taxableMonthlyAfterIns * 0.03063);
                 return Math.floor(taxableMonthlyAfterIns * 0.06126);
             }
 
-            // Kou-ran (Primary Employment) Computer Calculation Method (電子計算機等の特例)
-            // 1. Annualize monthly taxable income
             const annualizedIncome = taxableMonthlyAfterIns * 12;
-
-            // 2. Annual Employment Income Deduction (給与所得控除)
             let empDeduction = 0;
             if (annualizedIncome <= 1625000) empDeduction = 550000;
             else if (annualizedIncome <= 1800000) empDeduction = annualizedIncome * 0.4 - 100000;
@@ -986,14 +1007,10 @@
             else if (annualizedIncome <= 8500000) empDeduction = annualizedIncome * 0.1 + 1100000;
             else empDeduction = 1950000;
 
-            // 3. Basic Deduction (480,000) + Dependent Deduction (380,000 per dependent)
             const basicAndDepDeduction = 480000 + (dependents * 380000);
-
-            // 4. Net Taxable Annual Income
             const netTaxableAnnual = Math.max(0, annualizedIncome - empDeduction - basicAndDepDeduction);
             if (netTaxableAnnual <= 0) return 0;
 
-            // 5. Progressive Tax Rate
             let annualBaseTax = 0;
             if (netTaxableAnnual <= 1950000) annualBaseTax = netTaxableAnnual * 0.05;
             else if (netTaxableAnnual <= 3300000) annualBaseTax = netTaxableAnnual * 0.10 - 97500;
@@ -1002,14 +1019,15 @@
             else if (netTaxableAnnual <= 18000000) annualBaseTax = netTaxableAnnual * 0.33 - 1536000;
             else annualBaseTax = netTaxableAnnual * 0.40 - 2796000;
 
-            // Include 2.1% Special Reconstruction Income Tax (復興特別所得税) and divide by 12
             const monthlyTax = (annualBaseTax * 1.021) / 12;
-            // Round to nearest 10 yen as in standard tables
             return Math.round(monthlyTax / 10) * 10;
         }
 
         // Main Monthly Payroll Calculation
         function calculateMonthly() {
+            const noSocial = document.getElementById('noSocialInsurance').checked;
+            const noEmploymentIns = document.getElementById('noEmploymentInsurance').checked;
+
             const empName = document.getElementById('empName').value || "NGUYEN VAN A";
             const payMonth = document.getElementById('payMonth').value || "2026-11";
             const kenpoRateTotal = parseFloat(document.getElementById('prefectureRate').value) || 9.78;
@@ -1037,65 +1055,80 @@
             const otHolidayPay = Math.round(hourlyWage * 1.35 * otHolidayHours);
             const totalOvertimePay = otNormalPay + otOver60Pay + otNightPay + otHolidayPay;
 
-            // Update Overtime UI badges
             document.getElementById('hourlyWageDisplay').textContent = `${fmtJPY(hourlyWage)} 円/h`;
             document.getElementById('otNormalAmount').textContent = `${fmtJPY(otNormalPay)} 円`;
             document.getElementById('otOver60Amount').textContent = `${fmtJPY(otOver60Pay)} 円`;
             document.getElementById('otNightAmount').textContent = `${fmtJPY(otNightPay)} 円`;
             document.getElementById('otHolidayAmount').textContent = `${fmtJPY(otHolidayPay)} 円`;
 
-            // Gross Pay (総支給額)
+            // Gross Pay
             const grossPay = baseSalary + otherAllowance + totalOvertimePay + commutingAllowance;
-            // Non-taxable commuting cap is 150,000 JPY/month
             const nonTaxableCommuting = Math.min(commutingAllowance, 150000);
             const taxableSalaryGross = grossPay - nonTaxableCommuting;
 
-            // Standard Monthly Remuneration (標準報酬月額)
-            const stdMode = document.getElementById('stdRemunerationMode').value;
-            const stdRemuneration = stdMode === 'manual'
-                ? (parseFloat(document.getElementById('manualStdRemuneration').value) || 280000)
-                : getStandardRemuneration(grossPay);
+            // Social Insurance (0 if noSocial is checked)
+            let stdRemuneration = 0;
+            let healthInsEmp = 0;
+            let nursingInsEmp = 0;
+            let pensionInsEmp = 0;
+            let companyShakaiIns = 0;
 
-            // Social Insurance (社会保険料) - Split 50/50 between Employee and Employer
-            // 1. Health Insurance (健康保険)
-            const healthInsEmp = Math.floor(stdRemuneration * (kenpoRateTotal / 100) / 2);
-            // 2. Nursing Care Insurance (介護保険 - 1.60% total -> 0.80% employee for age 40-64)
-            const nursingInsEmp = ageGroup === '40to64' ? Math.floor(stdRemuneration * (1.60 / 100) / 2) : 0;
-            // 3. Welfare Pension (厚生年金 - 18.3% total -> 9.15% employee, capped at 650,000 stdRemuneration)
-            const pensionStdCap = Math.min(stdRemuneration, 650000);
-            const pensionInsEmp = Math.floor(pensionStdCap * 0.0915);
+            if (!noSocial) {
+                const stdMode = document.getElementById('stdRemunerationMode').value;
+                stdRemuneration = stdMode === 'manual'
+                    ? (parseFloat(document.getElementById('manualStdRemuneration').value) || 280000)
+                    : getStandardRemuneration(grossPay);
+
+                healthInsEmp = Math.floor(stdRemuneration * (kenpoRateTotal / 100) / 2);
+                nursingInsEmp = ageGroup === '40to64' ? Math.floor(stdRemuneration * (1.60 / 100) / 2) : 0;
+                const pensionStdCap = Math.min(stdRemuneration, 650000);
+                pensionInsEmp = Math.floor(pensionStdCap * 0.0915);
+                // Company Shakai Hoken includes 1/2 Health + 1/2 Nursing + 1/2 Pension + 0.36% Child & Childcare Contribution (子ども・子育て拠出金)
+                const childcareContribution = Math.floor(stdRemuneration * 0.0036);
+                companyShakaiIns = healthInsEmp + nursingInsEmp + pensionInsEmp + childcareContribution;
+            }
 
             // Labor Insurance (労働保険 = 雇用保険 + 労災保険)
-            // Employment Insurance (雇用保険) is calculated on Total Gross Pay (including commuting)
             const empInsRateEmployee = industryType === 'construction' ? 0.007 : 0.006;
             const empInsRateCompany = industryType === 'construction' ? 0.0105 : 0.0095;
-            const rousaiRateCompany = industryType === 'construction' ? 0.009 : 0.003; // Workers' comp 100% paid by employer
+            const rousaiRateCompany = industryType === 'construction' ? 0.009 : 0.003; // Rousai always applies even for part-time
 
-            const employmentInsEmp = Math.floor(grossPay * empInsRateEmployee);
+            const employmentInsEmp = noEmploymentIns ? 0 : Math.floor(grossPay * empInsRateEmployee);
+            const companyEmpIns = noEmploymentIns ? 0 : Math.floor(grossPay * empInsRateCompany);
+            const companyRousaiIns = Math.floor(grossPay * rousaiRateCompany);
+            const companyRoudouIns = companyEmpIns + companyRousaiIns;
+
             const totalSocialAndEmpInsEmp = healthInsEmp + nursingInsEmp + pensionInsEmp + employmentInsEmp;
-
-            // Company Burden (会社負担分)
-            const companyShakaiIns = healthInsEmp + nursingInsEmp + pensionInsEmp;
-            const companyRoudouIns = Math.floor(grossPay * (empInsRateCompany + rousaiRateCompany));
             const companyTotalBurden = companyShakaiIns + companyRoudouIns;
 
-            // Withholding Income Tax (源泉所得税)
+            // Withholding Income Tax
             const dependents = parseInt(document.getElementById('dependentsCount').value) || 0;
             const taxColumnType = document.getElementById('taxColumnType').value;
             const taxableIncomeForWithholding = Math.max(0, taxableSalaryGross - totalSocialAndEmpInsEmp);
             const incomeTax = calculateMonthlyWithholdingTax(taxableIncomeForWithholding, dependents, taxColumnType);
 
-            // Resident Tax (住民税)
+            // Resident Tax
             const residentTax = parseFloat(document.getElementById('residentTax').value) || 0;
             const totalTaxesEmp = incomeTax + residentTax;
 
-            // Net Take-Home Pay (差引支給額 / 手取り)
+            // Net Pay
             const netPay = grossPay - totalSocialAndEmpInsEmp - totalTaxesEmp;
 
             // Update Payslip UI
             document.getElementById('slipEmpName').textContent = empName;
             const [y, m] = payMonth.split('-');
             document.getElementById('slipPayMonth').textContent = y && m ? `${y}年${m}月` : payMonth;
+
+            const statusBadge = document.getElementById('slipShakaiStatusBadge');
+            if (noSocial) {
+                statusBadge.className = "text-[10px] bg-amber-500/20 text-amber-300 border border-amber-400/40 px-2 py-0.5 rounded-full font-bold";
+                statusBadge.textContent = "社会保険 未加入 (扶養/パート)";
+                document.getElementById('stdRemunerationBadge').textContent = "対象外 (0円)";
+            } else {
+                statusBadge.className = "text-[10px] bg-emerald-500/20 text-emerald-300 border border-emerald-400/30 px-2 py-0.5 rounded-full font-bold";
+                statusBadge.textContent = "社会保険 加入";
+                document.getElementById('stdRemunerationBadge').textContent = `標準報酬: ${fmtJPY(stdRemuneration)}円`;
+            }
 
             document.getElementById('resNetPay').textContent = fmtJPY(netPay);
             document.getElementById('resGrossPay').textContent = `${fmtJPY(grossPay)} 円`;
@@ -1104,7 +1137,6 @@
             document.getElementById('slipTotalOvertime').textContent = `${fmtJPY(totalOvertimePay)} 円`;
             document.getElementById('slipCommuting').textContent = `${fmtJPY(commutingAllowance)} 円`;
 
-            document.getElementById('stdRemunerationBadge').textContent = `標準報酬: ${fmtJPY(stdRemuneration)}円`;
             document.getElementById('resTotalInsuranceEmp').textContent = `-${fmtJPY(totalSocialAndEmpInsEmp)} 円`;
             document.getElementById('slipHealthIns').textContent = `${fmtJPY(healthInsEmp)} 円`;
             document.getElementById('slipNursingIns').textContent = `${fmtJPY(nursingInsEmp)} 円`;
@@ -1121,9 +1153,9 @@
             document.getElementById('slipCompanyRoudou').textContent = `${fmtJPY(companyRoudouIns)} 円`;
             document.getElementById('slipTotalCompanyCost').textContent = `${fmtJPY(grossPay + companyTotalBurden)} 円/tháng`;
 
-            // Store state for transfer or saving
             currentMonthlyState = {
                 name: empName,
+                noSocial,
                 month: payMonth,
                 grossPay,
                 taxableSalary: taxableSalaryGross,
@@ -1136,7 +1168,24 @@
 
         // Apply Quick Sample Presets
         function applyPreset(type) {
-            if (type === 'single25') {
+            if (type === 'dependentNoShakai') {
+                document.getElementById('noSocialInsurance').checked = true;
+                document.getElementById('noEmploymentInsurance').checked = false;
+                document.getElementById('empName').value = "PHAM THI D (ファム ティ D - Visa Gia Đình)";
+                document.getElementById('ageGroup').value = "under40";
+                document.getElementById('baseSalary').value = 95000;
+                document.getElementById('otherAllowance').value = 0;
+                document.getElementById('commutingAllowance').value = 10000;
+                document.getElementById('otNormalHours').value = 0;
+                document.getElementById('otOver60Hours').value = 0;
+                document.getElementById('otNightHours').value = 0;
+                document.getElementById('otHolidayHours').value = 0;
+                document.getElementById('dependentsCount').value = "0";
+                document.getElementById('residentTax').value = 0;
+                showToast("Đã nạp mẫu Nhân viên phụ thuộc Visa gia đình (Không 社会保険)!");
+            } else if (type === 'single25') {
+                document.getElementById('noSocialInsurance').checked = false;
+                document.getElementById('noEmploymentInsurance').checked = false;
                 document.getElementById('empName').value = "NGUYEN VAN A (グエン ヴァン A)";
                 document.getElementById('ageGroup').value = "under40";
                 document.getElementById('baseSalary').value = 230000;
@@ -1148,7 +1197,10 @@
                 document.getElementById('otHolidayHours').value = 0;
                 document.getElementById('dependentsCount').value = "0";
                 document.getElementById('residentTax').value = 8500;
+                showToast("Đã nạp mẫu Độc thân lương 25 vạn!");
             } else if (type === 'family35') {
+                document.getElementById('noSocialInsurance').checked = false;
+                document.getElementById('noEmploymentInsurance').checked = false;
                 document.getElementById('empName').value = "TRAN THI B (チャン ティ B)";
                 document.getElementById('ageGroup').value = "under40";
                 document.getElementById('baseSalary').value = 300000;
@@ -1160,24 +1212,12 @@
                 document.getElementById('otHolidayHours').value = 8;
                 document.getElementById('dependentsCount').value = "2";
                 document.getElementById('residentTax').value = 11000;
-            } else if (type === 'senior45') {
-                document.getElementById('empName').value = "LE HOANG C (レ ホアン C)";
-                document.getElementById('ageGroup').value = "40to64";
-                document.getElementById('baseSalary').value = 400000;
-                document.getElementById('otherAllowance').value = 50000;
-                document.getElementById('commutingAllowance').value = 20000;
-                document.getElementById('otNormalHours').value = 10;
-                document.getElementById('otOver60Hours').value = 0;
-                document.getElementById('otNightHours').value = 0;
-                document.getElementById('otHolidayHours').value = 0;
-                document.getElementById('dependentsCount').value = "1";
-                document.getElementById('residentTax').value = 19500;
+                showToast("Đã nạp mẫu Có 2 phụ thuộc lương 35 vạn!");
             }
+            handleInsuranceToggle();
             calculateMonthly();
-            showToast("Đã nạp dữ liệu mẫu thành công!");
         }
 
-        // Transfer Monthly Data (x12 months) to Tab 2 (Nenmatsu Chosei)
         function transferToNenmatsu() {
             calculateMonthly();
             document.getElementById('ycEmpName').value = currentMonthlyState.name;
@@ -1185,7 +1225,6 @@
             document.getElementById('ycAnnualSocialIns').value = Math.round(currentMonthlyState.totalSocialInsEmp * 12);
             document.getElementById('ycWithheldTaxPaid').value = Math.round(currentMonthlyState.incomeTax * 12);
 
-            // Sync dependents to general dependents
             const dep = currentMonthlyState.dependents || 0;
             if (dep === 1) {
                 document.getElementById('ycSpouseDeduction').value = "380000";
@@ -1203,7 +1242,6 @@
             showToast("Đã đồng bộ dữ liệu 12 tháng sang bảng Quyết toán thuế (年末調整)!");
         }
 
-        // Calculate Year-End Tax Adjustment & Gensen Choshuhyo (年末調整・源泉徴収票)
         function calculateNenmatsu() {
             const empName = document.getElementById('ycEmpName').value || "NGUYEN VAN A";
             const empAddr = document.getElementById('ycEmpAddress').value || "埼玉県蕨市";
@@ -1211,13 +1249,11 @@
 
             const annualSalary = parseFloat(document.getElementById('ycAnnualSalary').value) || 0;
             const annualBonus = parseFloat(document.getElementById('ycAnnualBonus').value) || 0;
-            // Box 1: 支払金額 (Total Gross Taxable Payment)
             const totalPaymentBox1 = annualSalary + annualBonus;
 
             const annualSocialIns = parseFloat(document.getElementById('ycAnnualSocialIns').value) || 0;
             const withheldTaxPaid = parseFloat(document.getElementById('ycWithheldTaxPaid').value) || 0;
 
-            // 1. Calculate Employment Income Deduction (給与所得控除)
             let employmentDeduction = 0;
             if (totalPaymentBox1 <= 1625000) {
                 employmentDeduction = 550000;
@@ -1233,10 +1269,8 @@
                 employmentDeduction = 1950000;
             }
 
-            // Box 2: 給与所得控除後の金額 (Income after employment income deduction)
             const incomeAfterEmpDedBox2 = Math.max(0, totalPaymentBox1 - employmentDeduction);
 
-            // 2. Calculate Total Income Deductions (所得控除の額の合計額)
             const basicDeduction = incomeAfterEmpDedBox2 <= 24000000 ? 480000 : 0;
             const spouseDeduction = parseFloat(document.getElementById('ycSpouseDeduction').value) || 0;
             const genDepCount = parseInt(document.getElementById('ycGeneralDepCount').value) || 0;
@@ -1246,14 +1280,11 @@
             const dependentDeduction = (genDepCount * 380000) + (specDepCount * 630000) + (eldDepCount * 480000);
             const lifeEarthquakeIns = parseFloat(document.getElementById('ycLifeEarthquakeIns').value) || 0;
 
-            // Box 3: 所得控除の額の合計額
             const totalDeductionsBox3 = basicDeduction + spouseDeduction + dependentDeduction + annualSocialIns + lifeEarthquakeIns;
 
-            // 3. Net Taxable Income (課税給与所得金額 - Rounded down to nearest 1,000 JPY)
             const rawTaxableIncome = Math.max(0, incomeAfterEmpDedBox2 - totalDeductionsBox3);
             const netTaxableIncome = Math.floor(rawTaxableIncome / 1000) * 1000;
 
-            // 4. Calculate Progressive Income Tax (算出所得税額)
             let baseIncomeTax = 0;
             if (netTaxableIncome <= 1950000) {
                 baseIncomeTax = netTaxableIncome * 0.05;
@@ -1269,18 +1300,12 @@
                 baseIncomeTax = netTaxableIncome * 0.40 - 2796000;
             }
 
-            // Subtract Housing Loan Tax Credit (住宅借入金等特別控除)
             const housingLoanCredit = parseFloat(document.getElementById('ycHousingLoanCredit').value) || 0;
             const taxAfterHousing = Math.max(0, baseIncomeTax - housingLoanCredit);
-
-            // Multiply by 102.1% for Reconstruction Special Income Tax & round down to 100 JPY
-            // Box 4: 源泉徴収税額 (年調年税額)
             const finalAnnualTaxBox4 = Math.floor((taxAfterHousing * 1.021) / 100) * 100;
 
-            // 5. Compare with Withheld Tax Paid -> Refund (還付) or Additional Collection (不足徴収)
-            const diffTax = withheldTaxPaid - finalAnnualTaxBox4; // Positive = Refund, Negative = Pay More
+            const diffTax = withheldTaxPaid - finalAnnualTaxBox4;
 
-            // Update Banner UI
             const banner = document.getElementById('nenmatsuResultBanner');
             const badge = document.getElementById('ycSettlementBadge');
             const diffLabel = document.getElementById('ycDiffLabel');
@@ -1307,7 +1332,6 @@
                 diffAmount.textContent = `${fmtJPY(diffTax)} 円`;
             }
 
-            // Update Official Gensen Choshuhyo Table
             document.getElementById('gensenTitleYear').textContent = `${taxYear}　給与所得の源泉徴収票`;
             document.getElementById('gensenAddress').textContent = empAddr;
             document.getElementById('gensenName').textContent = empName;
@@ -1328,14 +1352,12 @@
             document.getElementById('gensenRemarks').textContent =
                 `基礎控除額: ${fmtJPY(basicDeduction)}円 / 扶養控除額: ${fmtJPY(dependentDeduction)}円 / 課税給与所得金額: ${fmtJPY(netTaxableIncome)}円 / 年調精算 (${diffText})`;
 
-            // Update Breakdown Footer
             document.getElementById('expEmploymentDeduction').textContent = `${fmtJPY(employmentDeduction)} 円`;
             document.getElementById('expBasicDeduction').textContent = `${fmtJPY(basicDeduction)} 円`;
             document.getElementById('expTaxableIncome').textContent = `${fmtJPY(netTaxableIncome)} 円`;
             document.getElementById('expFinalTax').textContent = `${fmtJPY(finalAnnualTaxBox4)} 円`;
         }
 
-        // Save Employee Monthly Record
         function saveEmployeeRecord() {
             calculateMonthly();
             const record = {
@@ -1343,6 +1365,7 @@
                 ...currentMonthlyState
             };
             savedEmployees.unshift(record);
+            persistSavedEmployees();
             updateSavedBadge();
             showToast(`Đã lưu bảng lương của ${record.name}!`);
         }
@@ -1351,16 +1374,20 @@
             document.getElementById('savedCountBadge').textContent = savedEmployees.length;
         }
 
-        // Render Saved Employees Table
         function renderSavedEmployees() {
             const tbody = document.getElementById('savedEmployeesTableBody');
             if (savedEmployees.length === 0) {
-                tbody.innerHTML = `<tr><td colspan="7" class="p-6 text-center text-slate-400">Chưa có nhân viên nào được lưu.</td></tr>`;
+                tbody.innerHTML = `<tr><td colspan="8" class="p-6 text-center text-slate-400">Chưa có nhân viên nào được lưu.</td></tr>`;
                 return;
             }
             tbody.innerHTML = savedEmployees.map(emp => `
                 <tr class="hover:bg-slate-50 transition">
                     <td class="p-3 font-bold text-slate-900">${emp.name}</td>
+                    <td class="p-3">
+                        ${emp.noSocial
+                            ? '<span class="bg-amber-100 text-amber-800 text-[11px] font-bold px-2 py-0.5 rounded-full">Không 社会保険</span>'
+                            : '<span class="bg-emerald-100 text-emerald-800 text-[11px] font-bold px-2 py-0.5 rounded-full">Có 社会保険</span>'}
+                    </td>
                     <td class="p-3 text-slate-600">${emp.month}</td>
                     <td class="p-3 text-right font-semibold">${fmtJPY(emp.grossPay)} 円</td>
                     <td class="p-3 text-right text-rose-600">-${fmtJPY(emp.totalSocialInsEmp)} 円</td>
@@ -1393,14 +1420,16 @@
 
         function deleteSavedEmployee(id) {
             savedEmployees = savedEmployees.filter(e => e.id !== id);
+            persistSavedEmployees();
             updateSavedBadge();
             renderSavedEmployees();
         }
 
-        // Initialize on Window Load
         window.onload = function() {
             lucide.createIcons();
+            loadSavedEmployeesFromStorage();
             updateSavedBadge();
+            handleInsuranceToggle();
             calculateMonthly();
             calculateNenmatsu();
         };
